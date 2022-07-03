@@ -1,0 +1,22 @@
+{
+  "name": "mernfullauth",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "client": "cd client && npm run start",
+    "server": "cd server && npm run start",
+    "all": "concurrently \"npm run client\" \"npm run server\""
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^7.2.2"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
+    "husky": "^8.0.1"
+  }
+}

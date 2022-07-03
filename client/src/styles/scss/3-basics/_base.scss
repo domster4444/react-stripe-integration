@@ -1,0 +1,18 @@
+* {
+  box-sizing: border-box;
+  margin: 0px;
+  padding: 0px;
+}
+:root {
+  font-size: 10px;
+}
+
+body {
+  position: relative;
+  overflow-x: hidden;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
