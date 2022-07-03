@@ -16,9 +16,6 @@ const { template1 } = require('../utils/email-templates/template');
 //sendgrid
 const { sendEmail } = require('../utils/sendGrid');
 
-//nodemailer
-const { transporter } = require('../utils/sendEmail');
-
 interface formData {
   name: string;
   email: string;

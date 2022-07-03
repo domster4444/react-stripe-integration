@@ -15,6 +15,8 @@ const {
   getUserProfileData,
 } = require('../controllers/authController');
 
+const { getAllPlans } = require('../controllers/paymentController');
+
 const isUserLoggedInProd = require('../middlewares/isUserLoggedInProd');
 const isUserAdminProd = require('../middlewares/isUserAdminProd');
 const isUserCustomerProd = require('../middlewares/isUserCustomerProd');
@@ -31,5 +33,8 @@ router.route('/login').post(loginValidator, loginUser);
 router
   .route('/profile/:id')
   .get(isUserLoggedInProd, isUserCustomerProd, getUserProfileData);
+
+//? Stripe route
+router.route('/plans').get(getAllPlans);
 
 module.exports = router;
