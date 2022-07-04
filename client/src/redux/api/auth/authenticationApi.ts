@@ -64,6 +64,21 @@ export const authenticationApi: any = createApi({
         };
       },
     }),
+
+    //? reset password
+    sendResetEmail: builder.query({
+      query: (user) => {
+        return {
+          url: 'reset-password',
+          method: 'POST',
+
+          body: user,
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -73,4 +88,5 @@ export const {
   useRegisterUserMutation,
   useVerifiedRegisterUserMutation,
   useCreateVerifiedEmailUserMutation,
+  useSendResetEmailQuery,
 } = authenticationApi;

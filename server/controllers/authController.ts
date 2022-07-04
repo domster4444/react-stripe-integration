@@ -245,3 +245,77 @@ exports.getUserProfileData = catchAsyncErrors(
       });
   }
 );
+
+exports.sendResetPasswordLink = catchAsyncErrors(
+  async (req: Request, res: Response, next: any) => {
+    const { email } = req.body;
+
+    const user = await User.findOne({ email }).exec(
+      async (err: any, user: any) => {
+        if (err) {
+          return next(new ErrorHandler('Error occured  in server', 500));
+        }
+
+        if (!user) {
+          return next(new ErrorHandler('User with that  email do not exist'));
+        }
+
+        const { _id, name, email, role } = user;
+
+        const generatedToken = await createGeneralJWT(
+          {
+            _id,
+          },
+          process.env.JWT_RESET_PASSWORD,
+          '1d'
+        );
+
+        const resetPasswordLink = `${process.env.PROD_CLIENT_URL}/reset-password/${_id}/${generatedToken}`;
+
+        const emailContent = {
+          subjectTitle: 'click below link to reset your email',
+          bodyContent: template1(resetPasswordLink),
+        };
+
+        const emailSentStatus = await sendEmail(
+          email,
+          process.env.EMAILFROM,
+          emailContent
+        );
+        console.log(emailSentStatus);
+        if (emailSentStatus) {
+          return res.status(200).json({
+            success: true,
+            message: 'reset password link sent  to email successfully',
+          });
+        } else {
+          return next(
+            new ErrorHandler(
+              'Error occured while sending reset password link email',
+              500
+            )
+          );
+        }
+      }
+    );
+  }
+);
+
+exports.resetPassword = catchAsyncErrors(
+  async (req: Request, res: Response, next: any) => {
+    //@ts-ignore
+    const { _id } = req.user;
+
+    const { newPassword } = req.body;
+
+    //hash password
+    //---
+    //update password
+    //---
+
+    res.status(200).json({
+      success: false,
+      message: ' the request  was send successfully',
+    });
+  }
+);

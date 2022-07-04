@@ -14,7 +14,11 @@ import { useParams } from 'react-router-dom';
 import Alert from 'components/Alert';
 
 const Index = (): React.ReactElement => {
-  const { token } = useParams();
+  interface valueI {
+    password: string;
+  }
+
+  const { id, token } = useParams();
   console.log('token in param is ', token);
 
   const formik = useFormik({
@@ -24,9 +28,20 @@ const Index = (): React.ReactElement => {
     validationSchema: Yup.object({
       password: Yup.string().required('Required'),
     }),
-    onSubmit: (values) => {
-      toast('Logged In Successfully');
-      console.log(values);
+    onSubmit: (values: valueI) => {
+      alert('submitted');
+      const passwordToBeSent = values.password;
+      const idToBeSent = id;
+      const tokenToBeSent = token;
+
+      console.log('password submitted = ', passwordToBeSent);
+
+      console.log('id submitted = ', idToBeSent);
+
+      console.log('token submitted = ', tokenToBeSent);
+
+      //send request to "changePasswordController" which checks if header token is correct or not,
+      //  if correct,fetch _id from that token then change password using password value sent in body , and for user with that _id
     },
   });
 

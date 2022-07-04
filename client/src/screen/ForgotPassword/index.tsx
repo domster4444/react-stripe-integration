@@ -12,7 +12,13 @@ import { toast } from 'react-toastify';
 
 import Alert from 'components/Alert';
 
+import { useSendResetEmailQuery } from '../../redux/api/auth/authenticationApi';
+
 const Index = (): React.ReactElement => {
+  interface valuesI {
+    email: string;
+  }
+
   const formik = useFormik({
     initialValues: {
       email: '',
@@ -21,8 +27,8 @@ const Index = (): React.ReactElement => {
       email: Yup.string().email('Invalid email address').required('Required'),
     }),
     onSubmit: (values) => {
-      toast('Logged In Successfully');
-      console.log(values);
+      const email = values.email;
+      console.log('submitted email = ', email);
     },
   });
 
