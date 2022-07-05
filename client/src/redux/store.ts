@@ -10,9 +10,11 @@ import thunk from 'redux-thunk';
 //reducers
 import userInfoReducer from './features/userSlice';
 import authReducer from './features/authSlice';
+import stripeReducer from './features/stripeSlice';
 //rtk api
 import { userAuthApi } from './api/auth/userAuthApi';
 import { authenticationApi } from './api/auth/authenticationApi';
+import { stripeApi } from './api/auth/stripeApi';
 
 const reducers = combineReducers({
   //? Toolkit Reducers
@@ -20,10 +22,12 @@ const reducers = combineReducers({
   //todo: userPosts:postReducer
   userInfo: userInfoReducer,
   authInfo: authReducer,
+  stripeInfo: stripeReducer,
   //?RTK Api
   //todo: [postApi.reducerPath]:postApi.reducer
   [userAuthApi.reducerPath]: userAuthApi.reducer,
   [authenticationApi.reducerPath]: authenticationApi.reducer,
+  [stripeApi.reducerPath]: stripeApi.reducer,
 
   //? show dev tools only in development
   // devTools: process.env.NODE_ENV !== 'production',

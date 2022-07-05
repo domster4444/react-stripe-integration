@@ -5,7 +5,7 @@
 // to access private route, user must have token (token that he/she gets when loggedin (after registration/after login he/she gets token from server that they save later in localstorage ))
 //TO access private route, user must have token. that is what we do here , check if user has token or not (is logged in or not)
 const jwt = require('jsonwebtoken');
-const userModel = require('../models/User');
+const userModel = require('../models/userModel');
 import { Request, Response } from 'express';
 
 var checkIfUserIsLoggedIn = async (req: Request, res: Response, next: any) => {
