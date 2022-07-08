@@ -11,11 +11,13 @@ var isUserCustomerProd = async (req: Request, res: Response, next: any) => {
       token = authorization.split(' ')[1];
       const { data } = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-      console.log('USER ROLE is = ');
+      console.log('=====================USER ROLE is================= ');
       console.log(data.role);
-      //@ts-ignore
 
       if (data.role === 'customer') {
+        console.log('================req.user==================');
+        //@ts-ignore
+        console.log(req.user);
         return next();
       }
       return next(

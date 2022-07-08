@@ -15,7 +15,7 @@ const { template1 } = require('../utils/email-templates/template');
 
 //sendgrid
 const { sendEmail } = require('../utils/sendGrid');
-
+const { createStripeCustomer } = require('../utils/payment');
 interface formData {
   name: string;
   email: string;
@@ -162,7 +162,16 @@ exports.createAccountForEmailVerifiedUser = catchAsyncErrors(
         }
       });
 
-      const newUser = new User({ name, email, password });
+      //* create stripe customer
+      const createdCustomer = await createStripeCustomer(email);
+      console.log('createdCustomer = ', createdCustomer);
+
+      const newUser = new User({
+        name,
+        email,
+        password,
+        stripeCustomerId: createdCustomer.id,
+      }); //? Create User Object based on User-Schema
       await newUser.save((err: any, success: any) => {
         if (err) {
           return next(

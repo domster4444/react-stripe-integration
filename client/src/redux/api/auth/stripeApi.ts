@@ -13,7 +13,22 @@ export const stripeApi: any = createApi({
         };
       },
     }),
+
+    addSubscriptionToUser: builder.mutation({
+      query: (user) => {
+        return {
+          url: 'add-subscription-to-use',
+          method: 'POST',
+          body: user.planIdDataObj,
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + user.token,
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllPlansQuery } = stripeApi;
+export const { useGetAllPlansQuery, useAddSubscriptionToUserMutation } =
+  stripeApi;

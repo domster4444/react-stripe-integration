@@ -23,6 +23,8 @@ import CustomerPrivateRoute from 'routes/CustomerPrivateRoute';
 import CustomerDashboard from 'screen/CustomerDashboard';
 import AdminPrivateRoute from 'routes/AdminPrivateRoute';
 import AdminDashboard from 'screen/AdminDashboard';
+import PaymentSuccessPage from 'screen/PaymentSuccessPage';
+import PaymentCancelPage from 'screen/PaymentCancelPage';
 
 const AppRoutes: React.FC = (): React.ReactElement => {
   return (
@@ -73,6 +75,22 @@ const AppRoutes: React.FC = (): React.ReactElement => {
               <AdminPrivateRoute>
                 <AdminDashboard />
               </AdminPrivateRoute>
+            }
+          />
+          <Route
+            path="/stripe/success"
+            element={
+              <CustomerPrivateRoute>
+                <PaymentSuccessPage />
+              </CustomerPrivateRoute>
+            }
+          />
+          <Route
+            path="/stripe/cancel"
+            element={
+              <CustomerPrivateRoute>
+                <PaymentCancelPage />
+              </CustomerPrivateRoute>
             }
           />
         </Routes>

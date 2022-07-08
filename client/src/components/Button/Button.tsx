@@ -6,6 +6,7 @@ import { PrimaryBtn } from './Button.style';
 interface ButtonI {
   children: string;
   path?: string;
+  onClickProps?: () => void;
 }
 
 /**
@@ -14,7 +15,7 @@ interface ButtonI {
  * @param {ButtonI}  - ButtonI = {
  * @returns A function that returns a component.
  */
-export const PrimaryButton = ({ children, path }: ButtonI) => {
+export const PrimaryButton = ({ children, path, onClickProps }: ButtonI) => {
   if (path !== undefined) {
     return (
       <Link to={path}>
@@ -23,7 +24,12 @@ export const PrimaryButton = ({ children, path }: ButtonI) => {
     );
   }
   return (
-    <PrimaryBtn type="submit" primary className="poppins_regular">
+    <PrimaryBtn
+      type="submit"
+      primary
+      className="poppins_regular"
+      onClick={onClickProps ? onClickProps : undefined}
+    >
       {children}
     </PrimaryBtn>
   );

@@ -17,6 +17,8 @@ const {
   resetPassword,
 } = require('../controllers/authController');
 
+const { addSubscriptionToUser } = require('../controllers/paymentController');
+
 const { getAllPlans } = require('../controllers/paymentController');
 
 const isUserLoggedInProd = require('../middlewares/isUserLoggedInProd');
@@ -41,5 +43,9 @@ router
 
 //? Stripe route
 router.route('/plans').get(getAllPlans);
+//? route to add subscription to the suser
+router
+  .route('/add-subscription-to-use')
+  .post(isUserLoggedInProd, isUserCustomerProd, addSubscriptionToUser);
 
 module.exports = router;

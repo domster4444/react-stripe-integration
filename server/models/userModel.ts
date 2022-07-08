@@ -7,10 +7,12 @@ const crypto = require('crypto');
 interface UserSchemaInterface extends Document {
   name: string;
   email: string;
+  stripeCustomerId: string;
   role: string;
   hashed_password: string;
   salt: string;
   resetPasswordLink: string;
+  subscription: string[];
 }
 
 //user schema
@@ -32,6 +34,18 @@ const userSchema: Schema = new Schema<UserSchemaInterface>(
       required: [true, 'Please add an email'],
       lowercase: true,
       unique: true,
+    },
+
+    stripeCustomerId: {
+      type: String,
+      required: true,
+    },
+
+    subscription: {
+      // of type   array of string
+
+      type: [String],
+      required: true,
     },
 
     role: {

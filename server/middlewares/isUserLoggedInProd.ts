@@ -10,9 +10,16 @@ var isUserLoggedInProd = async (req: Request, res: Response, next: any) => {
   if (authorization && authorization.startsWith('Bearer')) {
     try {
       token = authorization.split(' ')[1];
-      const { _id } = jwt.verify(token, process.env.JWT_SECRET_KEY);
+
+      console.log('=================token===============');
+      console.log(token);
+      const data = jwt.verify(token, process.env.JWT_SECRET_KEY);
+      console.log(
+        '=================token data from isUserLoggedInProd==============='
+      );
+      console.log(data);
       //@ts-ignore
-      req.user = await userModel.findById(_id).select('-password');
+      req.user = await userModel.findById(data.data._id).select('-password');
       next();
     } catch (error: any) {
       res.status(401).json({
