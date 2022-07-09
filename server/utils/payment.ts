@@ -1,3 +1,8 @@
+/*//! A test card number. */
+//* card number:  4242 4242 4242 4242
+//* expiration date:   12/34 // any future date
+//* cvv: 123 // any three digits
+
 import { Request, Response } from 'express';
 
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
@@ -20,7 +25,7 @@ export const createStripeCustomer = async (emailParams: string) => {
   console.log('created stripe customer = ', customer);
   return customer;
 };
-
+//? our work here is just to create a stripe session obj with payment url, it solely depends on user if he/she will create his subscription or not in stripe.com via that url.
 export const createStripeCheckoutSession = async (
   planIdParam: any,
   quantityParam: number,
@@ -40,4 +45,13 @@ export const createStripeCheckoutSession = async (
     cancel_url: `${process.env.STRIPE_CANCEL_URL}`,
   });
   return session;
+};
+
+export const subscriptionStatus = async (stripeCustomerId: string) => {
+  const subscription = await stripe.subscriptions.list({
+    customer: stripeCustomerId,
+    status: 'all',
+    expand: ['data.default_payment_method'],
+  });
+  return subscription;
 };

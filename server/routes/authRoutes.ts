@@ -17,9 +17,11 @@ const {
   resetPassword,
 } = require('../controllers/authController');
 
-const { addSubscriptionToUser } = require('../controllers/paymentController');
-
-const { getAllPlans } = require('../controllers/paymentController');
+const {
+  getAllPlans,
+  addSubscriptionToUser,
+  updateUserSubscription,
+} = require('../controllers/paymentController');
 
 const isUserLoggedInProd = require('../middlewares/isUserLoggedInProd');
 const isUserAdminProd = require('../middlewares/isUserAdminProd');
@@ -43,9 +45,13 @@ router
 
 //? Stripe route
 router.route('/plans').get(getAllPlans);
-//? route to add subscription to the suser
+//? route to add subscription to the user in stripe dashboard in stripe.com as this route will create new session and returns session url to addd subscription to the user in stripe.com
 router
   .route('/add-subscription-to-use')
   .post(isUserLoggedInProd, isUserCustomerProd, addSubscriptionToUser);
+//? route to check if user has subscription or not in stripe.com and if yes, update userModel's subscription field = 'subscription plan'
+router
+  .route('/update-user-subscription')
+  .get(isUserLoggedInProd, isUserCustomerProd, updateUserSubscription);
 
 module.exports = router;

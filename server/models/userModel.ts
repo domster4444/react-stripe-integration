@@ -44,7 +44,7 @@ const userSchema: Schema = new Schema<UserSchemaInterface>(
     subscription: {
       // of type   array of string
 
-      type: [String],
+      type: [],
       required: true,
     },
 

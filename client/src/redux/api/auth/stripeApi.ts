@@ -27,8 +27,26 @@ export const stripeApi: any = createApi({
         };
       },
     }),
+
+    //? sends request to route that will check if user with that customer_user_id has been subscribed with any plans in stripe.com , and if yes, then based on that subscription plan, it will update userModel's subscription field
+    // call this route on success page , so that we can check if payment was successful (whether he/she has subscribed or not) and if yupToFormErrors,  then based on that subscription plan, it will update userModel's subscription field
+    updateUserSubscription: builder.mutation({
+      query: (user) => {
+        return {
+          url: 'update-user-subscription',
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + user.token,
+          },
+        };
+      },
+    }),
   }),
 });
 
-export const { useGetAllPlansQuery, useAddSubscriptionToUserMutation } =
-  stripeApi;
+export const {
+  useGetAllPlansQuery,
+  useAddSubscriptionToUserMutation,
+  useUpdateUserSubscriptionMutation,
+} = stripeApi;
