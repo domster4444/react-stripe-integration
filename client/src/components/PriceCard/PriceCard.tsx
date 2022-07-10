@@ -29,14 +29,16 @@ export const PriceCardContainer = () => {
     if (userLCData) {
       console.log('LOCALSTOEAGE DATA');
 
-      const subscriptionList = userLCData.subscription[0].data.map(
-        (item: any) => item.items.data[0]
-      );
-      const subscriptionNameList = subscriptionList.map(
-        (item: any) => item.plan.nickname
-      );
-      console.log('subscriptionNameList', subscriptionNameList);
-      setAlreadyBoughtSubscriptionList(subscriptionNameList);
+      if (userLCData.subscription.length > 0) {
+        const subscriptionList = userLCData.subscription[0].data.map(
+          (item: any) => item.items.data[0]
+        );
+        const subscriptionNameList = subscriptionList.map(
+          (item: any) => item.plan.nickname
+        );
+        console.log('subscriptionNameList', subscriptionNameList);
+        setAlreadyBoughtSubscriptionList(subscriptionNameList);
+      }
     }
   }, []);
 
