@@ -206,7 +206,7 @@ exports.loginUser = catchAsyncErrors(
         return next(new ErrorHandler('password or email is incorrect', 400));
       }
 
-      const { _id, name, email, role } = user;
+      const { _id, name, email, role, subscription } = user;
 
       const generatedToken = await createGeneralJWT(
         { _id, name, email, role },
@@ -222,6 +222,7 @@ exports.loginUser = catchAsyncErrors(
           name,
           email,
           role,
+          subscription,
         },
         token: generatedToken,
       });
@@ -246,6 +247,7 @@ exports.getUserProfileData = catchAsyncErrors(
         if (!user) {
           return next(new ErrorHandler('user not found', 400));
         }
+        console.log(user);
         return res.status(200).json({
           success: true,
           message: 'User profile data fetched successfully',

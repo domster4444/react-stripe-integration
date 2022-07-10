@@ -1,16 +1,29 @@
 import React from 'react';
 import { InputPropsI } from './interface';
 import { InputField } from './Input.style';
-const Input = (props: InputPropsI) => {
+const Input: React.FC<InputPropsI> = ({
+  elementSize,
+  type,
+  id,
+  name,
+  placeholder,
+  value,
+  disabled,
+  onChange,
+  //rest parameter
+  ...rest
+}) => {
   return (
     <InputField
       className="poppins_regular"
       scalestyle="large"
-      placeholder={props.placeholder ? props.placeholder : undefined}
-      type={props.type ? props.type : 'text'}
-      name={props.name ? props.name : undefined}
-      value={props.value ? props.value : undefined}
-      onChange={props.onChange ? props.onChange : undefined}
+      placeholder={placeholder ? placeholder : undefined}
+      type={type ? type : 'text'}
+      name={name ? name : undefined}
+      value={value ? value : undefined}
+      onChange={onChange ? onChange : undefined}
+      disabled={disabled ? disabled : undefined}
+      {...rest}
     />
   );
 };

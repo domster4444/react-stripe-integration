@@ -7,6 +7,7 @@ interface ButtonI {
   children: string;
   path?: string;
   onClickProps?: () => void;
+  [key: string]: any;
 }
 
 /**
@@ -15,7 +16,12 @@ interface ButtonI {
  * @param {ButtonI}  - ButtonI = {
  * @returns A function that returns a component.
  */
-export const PrimaryButton = ({ children, path, onClickProps }: ButtonI) => {
+export const PrimaryButton = ({
+  children,
+  path,
+  onClickProps,
+  ...rest
+}: ButtonI) => {
   if (path !== undefined) {
     return (
       <Link to={path}>
@@ -29,6 +35,7 @@ export const PrimaryButton = ({ children, path, onClickProps }: ButtonI) => {
       primary
       className="poppins_regular"
       onClick={onClickProps ? onClickProps : undefined}
+      {...rest}
     >
       {children}
     </PrimaryBtn>

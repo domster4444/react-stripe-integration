@@ -79,6 +79,20 @@ export const authenticationApi: any = createApi({
         };
       },
     }),
+
+    //? get profile data
+    getUserProfileData: builder.mutation({
+      query: (user) => {
+        return {
+          url: 'profile/' + user.id,
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Bearer ' + user.token,
+          },
+        };
+      },
+    }),
   }),
 });
 
@@ -89,4 +103,5 @@ export const {
   useVerifiedRegisterUserMutation,
   useCreateVerifiedEmailUserMutation,
   useSendResetEmailQuery,
+  useGetUserProfileDataMutation,
 } = authenticationApi;

@@ -7,15 +7,15 @@ import { storeDataByObj as storeLocalStorageDataByObj } from 'services/LocalStor
 import { deleteData as deleteCookieData } from 'services/Cookie';
 import { deleteData as deleteLocalStorageData } from 'services/LocalStorageService';
 
-const DataStorageMiddleware: Function = (
+const DataStorageMiddleware: Function = async (
   serverResponse: any,
   next: Function
-): void => {
-  console.log('🅿️ serverResponse in AuthStorageMiddleware: ', serverResponse);
+) => {
   //* STORE Token in cookie
-  storeCookieDataByVal('token', serverResponse.data.token);
+
+  await storeCookieDataByVal('token', serverResponse.data.token);
   //* STORE User data in localstorage
-  storeLocalStorageDataByObj('user', serverResponse.data.data);
+  await storeLocalStorageDataByObj('user', serverResponse.data.data);
 
   next();
 };

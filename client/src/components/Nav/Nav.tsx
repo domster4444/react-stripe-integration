@@ -87,7 +87,12 @@ const Nav = () => {
               </NavListItem>
 
               <NavListItem>
-                <a>{isAuth().name}</a>
+                <Link
+                  to={isAuth() ? '/account' : '/login'}
+                  style={isActive('/login')}
+                >
+                  {isAuth().name}
+                </Link>
               </NavListItem>
             </>
           )}

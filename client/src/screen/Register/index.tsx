@@ -87,7 +87,7 @@ const Index: React.FC = (): React.ReactElement => {
               elementSize="small"
               placeholder="Enter your name"
               name="name"
-              type="name"
+              type="text"
             />
 
             {formik.errors.name && formik.touched.name ? (

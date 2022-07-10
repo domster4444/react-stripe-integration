@@ -66,10 +66,11 @@ const Index = (): React.ReactElement => {
       if (res.error) {
         toast.error(res.error.data.message);
       }
+      console.log(res);
 
       if (res.data) {
         toast.success(res.data.message);
-        DataStorageMiddleware(res, () => {
+        await DataStorageMiddleware(res, () => {
           isAuth() && isAuth().role === 'customer'
             ? navigate('/customer-private-page')
             : isAuth() && isAuth().role === 'admin'
