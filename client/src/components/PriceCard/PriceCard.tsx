@@ -26,16 +26,18 @@ export const PriceCardContainer = () => {
 
   useEffect(() => {
     const userLCData = getDataByObj('user');
-    console.log('LOCALSTOEAGE DATA');
+    if (userLCData) {
+      console.log('LOCALSTOEAGE DATA');
 
-    const subscriptionList = userLCData.subscription[0].data.map(
-      (item: any) => item.items.data[0]
-    );
-    const subscriptionNameList = subscriptionList.map(
-      (item: any) => item.plan.nickname
-    );
-    console.log('subscriptionNameList', subscriptionNameList);
-    setAlreadyBoughtSubscriptionList(subscriptionNameList);
+      const subscriptionList = userLCData.subscription[0].data.map(
+        (item: any) => item.items.data[0]
+      );
+      const subscriptionNameList = subscriptionList.map(
+        (item: any) => item.plan.nickname
+      );
+      console.log('subscriptionNameList', subscriptionNameList);
+      setAlreadyBoughtSubscriptionList(subscriptionNameList);
+    }
   }, []);
 
   if (isLoading) {
